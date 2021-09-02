@@ -1,21 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import * as Fonts from "expo-font";
+import AppLoading from "expo-app-loading";
+
+import Navigator from "./navigation/Navigator";
+
+const fetchFonts = () => {
+  return Fonts.loadAsync({
+    monoton: require("./assets/fonts/Monoton-Regular.ttf"),
+  });
+};
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [isLoaded, setIsLoaded] = useState(false);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (!isLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setIsLoaded(true)}
+        onError={(err) => console.log(err)}
+      />
+    );
+  }
+
+  return <Navigator />;
+}
