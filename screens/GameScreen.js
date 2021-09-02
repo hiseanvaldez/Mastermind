@@ -9,6 +9,8 @@ import { selectColor } from "../redux/gameAction";
 
 export default GameScreen = () => {
   const dispatch = useDispatch();
+  const guesses = useSelector((state) => state.game.guesses);
+  const guessCount = useSelector((state) => state.game.guessCount);
 
   const pegs = Pegs.map((peg) => (
     <Peg
@@ -21,14 +23,25 @@ export default GameScreen = () => {
   ));
 
   const selectPegHandler = (color) => {
-    dispatch(selectColor(color));
+    const round = Math.floor(guessCount / 4) + 1;
+    dispatch(selectColor(round, color));
+  };
+
+  const renderCards = () => {
+    var cards = [];
+
+    for (let [key, value] of Object.entries(guesses)) {
+      cards.push(
+        <GuessCard key={key} guesses={value.guesses} result={value.result} />
+      );
+    }
+
+    return <View style={styles.boardContainer}>{cards}</View>;
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.boardContainer}>
-        <GuessCard />
-      </View>
+      {renderCards()}
       <View style={styles.buttonContainer}>{pegs}</View>
     </View>
   );
@@ -44,7 +57,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     alignItems: "center",
-    justifyContent: "space-between",
     padding: 20,
   },
   buttonContainer: {

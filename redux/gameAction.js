@@ -6,6 +6,12 @@ export const startGame = () => {
   return { type: START_GAME };
 };
 
-export const selectColor = (color) => {
-  return { type: SELECT_COLOR, color: color };
+export const selectColor = (round, color) => {
+  return {
+    type: SELECT_COLOR,
+    payload: {
+      round: round,
+      color: color,
+    },
+  };
 };

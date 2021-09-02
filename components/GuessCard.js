@@ -1,16 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Colors from "../constants/Colors";
 import Checker from "./Checker";
 
 export default GuessCard = (props) => {
+  const { guesses } = props;
+
   return (
     <View style={styles.card}>
       <View style={styles.pegContainer}>
-        <Peg color={"salmon"} />
-        <Peg color={"salmon"} />
-        <Peg color={"salmon"} />
-        <Peg color={"salmon"} />
+        <Peg color={guesses && guesses[0] ? guesses[0] : "#FFF"} />
+        <Peg color={guesses && guesses[1] ? guesses[1] : "#FFF"} />
+        <Peg color={guesses && guesses[2] ? guesses[2] : "#FFF"} />
+        <Peg color={guesses && guesses[3] ? guesses[3] : "#FFF"} />
       </View>
       <View style={styles.separator} />
       <View style={styles.check}>
@@ -31,6 +33,7 @@ const styles = StyleSheet.create({
   card: {
     width: "100%",
     padding: 10,
+    marginBottom: 10,
     backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
