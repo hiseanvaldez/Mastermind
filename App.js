@@ -3,6 +3,15 @@ import * as Fonts from "expo-font";
 import AppLoading from "expo-app-loading";
 
 import Navigator from "./navigation/Navigator";
+import { combineReducers, createStore } from "redux";
+import gameReducer from "./redux/gameReducer";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { Provider } from "react-redux";
+
+const rootReducer = combineReducers({
+  game: gameReducer,
+});
+const store = createStore(rootReducer, composeWithDevTools());
 
 const fetchFonts = () => {
   return Fonts.loadAsync({
@@ -23,5 +32,9 @@ export default function App() {
     );
   }
 
-  return <Navigator />;
+  return (
+    <Provider store={store}>
+      <Navigator />
+    </Provider>
+  );
 }
