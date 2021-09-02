@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import GuessCard from "../components/GuessCard";
 import Peg from "../components/Peg";
@@ -12,6 +12,7 @@ export default GameScreen = () => {
 
   const pegs = Pegs.map((peg) => (
     <Peg
+      key={peg.id}
       color={peg.color}
       onSelect={() => {
         selectPegHandler(peg.color);
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     alignItems: "center",
+    justifyContent: "space-between",
     padding: 20,
   },
   buttonContainer: {

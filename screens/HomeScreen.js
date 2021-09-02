@@ -1,8 +1,16 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { startGame } from "../redux/gameAction";
 
 export default HomeScreen = (props) => {
   const { navigation } = props;
+  const dispatch = useDispatch();
+
+  const newGameHandler = () => {
+    dispatch(startGame());
+    navigation.navigate("Game");
+  };
 
   return (
     <View style={styles.container}>
@@ -11,7 +19,7 @@ export default HomeScreen = (props) => {
         style={styles.button}
         title="New Game"
         onPress={() => {
-          navigation.navigate("Game");
+          newGameHandler();
         }}
       />
     </View>
